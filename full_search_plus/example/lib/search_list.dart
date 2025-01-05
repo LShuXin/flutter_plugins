@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html_rich_text/flutter_html_rich_text.dart';
 import 'package:full_search_plus_example/demo.dart';
 
 class SearchList extends StatelessWidget {
@@ -29,7 +30,9 @@ class SearchList extends StatelessWidget {
       // A callback that will return a widget.
       itemBuilder: (context, index) {
         // In our case, a DogCard for each doggo.
-        return ListTile(title: Text(results[index].snippet, style: TextStyle(fontSize: 12),),);
+        return HtmlRichText(
+          htmlText: '<p>${results[index].snippet}</p>',
+        );
       },
     );
   }

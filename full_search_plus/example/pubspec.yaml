@@ -32,6 +32,10 @@ dependencies:
   path_provider: 2.0.15
   # Could not find a command named "/Users/apple/IDE/flutter/bin/cache/dart-sdk/bin/snapshots/frontend_server.dart.snapshot".
   frontend_server_client: ^4.0.0
+  flutter_html_rich_text:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: flutter_html_rich_text
 
 
 dev_dependencies:
