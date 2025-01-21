@@ -1,0 +1,6 @@
+/// Retry library for Dio package made with love
+library dio_smart_retry;
+
+export 'src/default_retry_evaluator.dart';
+export 'src/http_status_codes.dart';
+export 'src/retry_interceptor.dart';
