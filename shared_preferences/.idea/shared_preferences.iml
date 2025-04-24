@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_android/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_foundation/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_linux/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_platform_interface/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_platform_interface/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_platform_interface/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_tool/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_tool/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_tool/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_web/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/shared_preferences_windows/example/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
