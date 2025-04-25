@@ -33,11 +33,26 @@ dependencies:
     git:
       url: https://github.com/LShuXin/flutter_plugins.git
       path: shared_preferences/shared_preferences_android
-  shared_preferences_foundation: ^2.5.0
-  shared_preferences_linux: ^2.4.0
-  shared_preferences_platform_interface: ^2.4.0
-  shared_preferences_web: ^2.4.0
-  shared_preferences_windows: ^2.4.0
+  shared_preferences_foundation:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_foundation
+  shared_preferences_linux:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_linux
+  shared_preferences_platform_interface:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_platform_interface
+  shared_preferences_web:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_web
+  shared_preferences_windows:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_windows
 
 dev_dependencies:
   flutter_test:

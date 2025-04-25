@@ -2,6 +2,7 @@ name: shared_preferences_windows
 description: Windows implementation of shared_preferences
 repository: https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences_windows
 issue_tracker: https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+shared_preferences%22
+published_to: none
 version: 2.4.1
 
 environment:
@@ -20,9 +21,18 @@ dependencies:
   flutter:
     sdk: flutter
   path: ^1.8.0
-  path_provider_platform_interface: ^2.0.0
-  path_provider_windows: ^2.0.0
-  shared_preferences_platform_interface: ^2.4.0
+  path_provider_platform_interface:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: path_provider/path_provider_platform_interface
+  path_provider_windows:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: path_provider/path_provider_windows
+  shared_preferences_platform_interface:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: shared_preferences/shared_preferences_platform_interface
 
 dev_dependencies:
   flutter_test:

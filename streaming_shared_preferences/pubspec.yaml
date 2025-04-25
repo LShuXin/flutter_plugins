@@ -2,6 +2,7 @@ name: streaming_shared_preferences
 description: A stream based wrapper over shared_preferences, allowing reactive key-value storage.
 version: 2.0.0
 homepage: https://github.com/roughike/streaming_shared_preferences
+published_to: none
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
