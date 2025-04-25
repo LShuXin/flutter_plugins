@@ -20,7 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
   path: ^1.8.0
-  path_provider_platform_interface: ^2.1.0
+  path_provider_platform_interface:
+    git:
+      url: https://github.com/LShuXin/flutter_plugins.git
+      path: path_provider/path_provider_platform_interface
   xdg_directories: ">=0.2.0 <2.0.0"
 
 dev_dependencies:
