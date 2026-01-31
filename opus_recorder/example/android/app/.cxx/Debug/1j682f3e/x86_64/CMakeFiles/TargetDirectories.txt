@@ -1,0 +1,2 @@
+/Users/apple/Desktop/flutter_plugins/opus_recorder/example/android/app/.cxx/Debug/1j682f3e/x86_64/CMakeFiles/edit_cache.dir
+/Users/apple/Desktop/flutter_plugins/opus_recorder/example/android/app/.cxx/Debug/1j682f3e/x86_64/CMakeFiles/rebuild_cache.dir

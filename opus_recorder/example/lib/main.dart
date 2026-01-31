@@ -28,6 +28,8 @@ class RecordInfo {
 class _MyAppState extends State<MyApp> implements OpusRecorderRef {
 
   List<RecordInfo> infos = [];
+  
+  bool _isRecording = false;
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
     // currently not work
     setState(() {
       infos.add(RecordInfo(filePath, time));
+      _isRecording = false;
     });
   }
 
@@ -91,20 +94,23 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
             debugPrint('开始录音...');
             var res = await OpusRecorder.startRecord(savePath, 60);
             debugPrint('是否开始录制： $res');
+            if (res && mounted) {
+              setState(() {
+                _isRecording = false;
+              });
+            }
           },
           onLongPressEnd: (LongPressEndDetails details) async {
             debugPrint("onLongPressEnd");
             List res = await OpusRecorder.stopRecord();
             setState(() {
               infos.add(RecordInfo(res[0].toString(), res[1].toString()));
+              _isRecording = false;
             });
             print('录制结果');
             print(res);
           },
-          child: FloatingActionButton(
-            onPressed: () {  },
-            child:Icon(Icons.add),
-          ),
+          child: Text('长按进行录制')
         ),
       ),
     );
