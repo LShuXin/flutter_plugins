@@ -4,6 +4,7 @@ import 'opus_recorder_platform_interface.dart';
 
 abstract class OpusRecorderRef {
   void onRecordFinished(String filePath, String time);
+  void onAmplitudeChanged(double amplitude);
 }
 
 /// An implementation of [OpusRecorderPlatform] that uses method channels.
@@ -21,11 +22,21 @@ class MethodChannelOpusRecorder extends OpusRecorderPlatform {
     methodChannel.setMethodCallHandler((MethodCall methodCall) {
       print('原生调用...');
       if ('finishedRecord' == methodCall.method) {
-        if (null == currentRef) {
+        if (null != currentRef) {
           currentRef!.onRecordFinished(
-            methodCall.arguments[0],
-            methodCall.arguments[1],
+            methodCall.arguments[0].toString(),
+            methodCall.arguments[1].toString(),
           );
+        }
+      } else if ('onAmplitudeChanged' == methodCall.method) {
+        if (null != currentRef) {
+          double amplitude = 0.0;
+          if (methodCall.arguments is num) {
+            amplitude = (methodCall.arguments as num).toDouble();
+          } else {
+            amplitude = double.tryParse(methodCall.arguments.toString()) ?? 0.0;
+          }
+          currentRef!.onAmplitudeChanged(amplitude);
         }
       }
       return Future.value(methodCall.method);

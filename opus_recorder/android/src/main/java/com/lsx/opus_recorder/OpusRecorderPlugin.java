@@ -30,15 +30,17 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 /** OpusRecorderPlugin */
 public class OpusRecorderPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
-  /// The MethodChannel that will the communication between Flutter and native Android
+  /// The MethodChannel that will the communication between Flutter and native
+  /// Android
   ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
+  /// This local reference serves to register the plugin with the Flutter Engine
+  /// and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
   private static final int REQUEST_EXTERNAL_STORAGE = 1;
   private static String[] PERMISSIONS_STORAGE = {
-    Manifest.permission.READ_EXTERNAL_STORAGE,
-    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      Manifest.permission.READ_EXTERNAL_STORAGE,
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
   };
   private static final int MODE_NORMAL = 1;
   private static final int MODE_IN_CALL = 2;
@@ -76,7 +78,7 @@ public class OpusRecorderPlugin implements FlutterPlugin, MethodCallHandler, Act
         currentAudioRecordHandler.setRecording(false);
       }
 
-      currentAudioRecordHandler = new AudioRecordHandler(savePath);
+      currentAudioRecordHandler = new AudioRecordHandler(savePath, channel);
       currentAudioRecordHandler.setRecording(true);
       new Thread(currentAudioRecordHandler).start();
       result.success(true);
@@ -158,7 +160,8 @@ public class OpusRecorderPlugin implements FlutterPlugin, MethodCallHandler, Act
       Log.e("PermissionCheck", "Error verifying microphone permission", e);
     }
 
-    // Return true if running on Android versions lower than M, where permissions are automatically granted
+    // Return true if running on Android versions lower than M, where permissions
+    // are automatically granted
     return true;
   }
 
@@ -166,7 +169,5 @@ public class OpusRecorderPlugin implements FlutterPlugin, MethodCallHandler, Act
   private static boolean hasPermission(Activity activity, String permission) {
     return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
   }
-
-
 
 }

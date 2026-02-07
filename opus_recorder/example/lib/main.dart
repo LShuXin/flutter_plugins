@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
   List<RecordInfo> infos = [];
   
   bool _isRecording = false;
+  double _amplitude = 0.0;
 
   @override
   void initState() {
@@ -44,6 +45,15 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
     setState(() {
       infos.add(RecordInfo(filePath, time));
       _isRecording = false;
+      _amplitude = 0.0;
+    });
+  }
+
+  @override
+  void onAmplitudeChanged(double amplitude) {
+    setState(() {
+      debugPrint('实时音量: $amplitude');
+      _amplitude = amplitude;
     });
   }
 
@@ -55,28 +65,61 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: ListView.builder(
-            itemCount: infos.length,
-            itemBuilder: (BuildContext context, int index) {
-              RecordInfo info = infos[index];
-              return GestureDetector(
+        body: Column(
+          children: [
+            if (_isRecording)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    ListTile(
-                      title: Text(
-                        '【Path】: ${info.filePath} \n【Duration】: ${info.time}',
-                        style: TextStyle(fontSize: 14),
+                    Text('正在录音...', style: TextStyle(color: Colors.red)),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: (_amplitude / 100).clamp(0.0, 1.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       ),
                     ),
+                    Text('音量: ${_amplitude.toStringAsFixed(2)}'),
                   ],
                 ),
-                onTap: () {
-                  OpusRecorder.playFile(info.filePath);
-                },
-              );
-            }
-          ),
+              ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: infos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  RecordInfo info = infos[index];
+                  return GestureDetector(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            '【Path】: ${info.filePath} \n【Duration】: ${info.time}',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      OpusRecorder.playFile(info.filePath);
+                    },
+                  );
+                }
+              ),
+            ),
+          ],
         ),
         floatingActionButton: GestureDetector(
           onLongPressStart: (LongPressStartDetails details) async {
@@ -96,7 +139,7 @@ class _MyAppState extends State<MyApp> implements OpusRecorderRef {
             debugPrint('是否开始录制： $res');
             if (res && mounted) {
               setState(() {
-                _isRecording = false;
+                _isRecording = true;
               });
             }
           },

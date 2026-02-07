@@ -20,10 +20,12 @@ public class AudioRecordHandler implements Runnable {
 	private long maxVolumeEnd = 0;
 	private static AudioRecord recordInstance = null;
 	private OpusRecorder opusRecorder;
+	private io.flutter.plugin.common.MethodChannel channel;
 
-	public AudioRecordHandler(String fileName) {
+	public AudioRecordHandler(String fileName, io.flutter.plugin.common.MethodChannel channel) {
 		super();
 		this.fileName = fileName;
+		this.channel = channel;
 	}
 
 	public void run() {
@@ -38,18 +40,83 @@ public class AudioRecordHandler implements Runnable {
 				}
 			}
 			try {
-				OpusRecorder.getInstance().startRecording(this.fileName);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						OpusRecorder.getInstance().startRecording(fileName);
+					}
+				}).start();
+
+				// Wait a bit for the recorder to be initialized
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+				}
+
 				recordTime = 0;
 				startTime = System.currentTimeMillis();
 				maxVolumeStart = System.currentTimeMillis();
+
+				final AudioRecord monitor;
+				int bufferSize = AudioRecord.getMinBufferSize(16000, AudioFormat.CHANNEL_IN_MONO,
+						AudioFormat.ENCODING_PCM_16BIT);
+				AudioRecord tempMonitor = null;
+				try {
+					tempMonitor = new AudioRecord(android.media.MediaRecorder.AudioSource.MIC, 16000,
+							AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);
+					tempMonitor.startRecording();
+					android.util.Log.d("OpusRecorder", "Monitor AudioRecord started");
+				} catch (Exception e) {
+					android.util.Log.e("OpusRecorder", "Monitor AudioRecord failed to start", e);
+				}
+				monitor = tempMonitor;
+
+				final short[] monitorBuffer = new short[bufferSize / 2];
+
 				while (this.isRecording) {
 					endTime = System.currentTimeMillis();
 					recordTime = (float) ((endTime - startTime) / 1000.0f);
 					if (recordTime >= MAX_SOUND_RECORD_TIME) {
-						//timeover
 						break;
 					}
-					maxVolumeEnd = System.currentTimeMillis();
+
+					if (monitor != null && monitor.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+						int readLen = monitor.read(monitorBuffer, 0, monitorBuffer.length);
+						if (readLen > 0) {
+							double sum = 0;
+							for (int i = 0; i < readLen; i++) {
+								sum += (double) monitorBuffer[i] * monitorBuffer[i];
+							}
+							double rms = Math.sqrt(sum / readLen);
+							// Normalize RMS (max for 16-bit is 32767) to a 0-100 scale roughly
+							final double volume = (rms / 327.67);
+
+							if (System.currentTimeMillis() - maxVolumeStart >= 100) {
+								maxVolumeStart = System.currentTimeMillis();
+								if (channel != null) {
+									new android.os.Handler(android.os.Looper.getMainLooper()).post(new Runnable() {
+										@Override
+										public void run() {
+											channel.invokeMethod("onAmplitudeChanged", volume);
+										}
+									});
+								}
+							}
+						}
+					} else {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+						}
+					}
+				}
+
+				if (monitor != null) {
+					try {
+						monitor.stop();
+						monitor.release();
+					} catch (Exception e) {
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
